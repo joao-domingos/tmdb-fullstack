@@ -1,18 +1,54 @@
-# React + Vite
+# TMDB Busca e Descoberta de Filmes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sobre
+Aplicação de página única (SPA) desenvolvida em React.js para descobrir e buscar filmes utilizando a API do The Movie Database (TMDB).
 
-Currently, two official plugins are available:
+## Funcionalidades
+- Busca de filmes por título
+- Filtros por gênero, ano e nota mínima
+- Ordenação por popularidade, nota ou data de lançamento
+- Paginação para navegar pelos resultados
+- Layout responsivo em grid
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologias Utilizadas
+- **React.js** - Framework frontend
+- **MaterialUI** - Biblioteca de componentes
+- **TMDB API** - Fonte de dados de filmes
+- **Vite** - Ferramenta de build
 
-## React Compiler
+## Configuração
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Pré-requisitos
+- Node.js instalado
+- Chave de API do TMDB (gratuita em https://www.themoviedb.org/settings/api)
 
-Note: This will impact Vite dev & build performances.
+### Instalação
+1. Clone o repositório
+2. Crie um arquivo `.env` na raiz do projeto
+3. Adicione sua chave de API do TMDB:
+   ```
+   VITE_TMDB_API_KEY=sua_chave_aqui
+   ```
+4. Instale as dependências:
+   ```bash
+   npm install
+   ```
+5. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
 
-## Expanding the ESLint configuration
+## Build para Produção
+```bash
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Os arquivos gerados estarão na pasta `dist/`.
+
+## Informações do Curso
+- **Universidade:** [UTFPR-CP]
+- **Disciplina:** [Programação Web Fullstack]
+- **Professor:** [Professor Doutor Willian Watanabe]
+
+## Desenvolvido por
+[j]
