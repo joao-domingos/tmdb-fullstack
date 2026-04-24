@@ -8,7 +8,6 @@ function MovieGrid() {
   const { movies, loading, error, filters, page } = state;
 
   useEffect(() => {
-    console.log('Filters changed:', filters);
     fetchMovies(dispatch, filters, page);
   }, [filters, page]);
 

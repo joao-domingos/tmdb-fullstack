@@ -16,7 +16,16 @@ function SearchBar() {
       placeholder="Type a movie name and press Enter"
       onKeyDown={handleSearch}
       fullWidth
-      sx={{ mb: 2 }}
+      sx={{
+        mb: 2,
+        '& .MuiInputBase-input': {
+          backgroundColor: '#ffffff',
+          color: '#000000',
+        },
+        '& .MuiInputLabel-root': {
+          color: '#000000',
+        },
+      }}
     />
   );
 }
