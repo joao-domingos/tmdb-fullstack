@@ -12,14 +12,14 @@ function MovieCard({ movie = mockMovie }) {
     : 'https://via.placeholder.com/500x750?text=No+Poster';
 
   return (
-    <Card sx={{ width: 300, height: 400, display: 'flex', flexDirection: 'column' }}>
+    <Card sx={{ width: 220, height: 380, display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="img"
         image={posterUrl}
         alt={movie.title}
-        sx={{ width: 300, height: 320, objectFit: 'cover' }}
+        sx={{ width: 220, height: 300, objectFit: 'cover' }}
       />
-      <CardContent sx={{ width: 300, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <CardContent sx={{ width: 220, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <Typography variant="h6" noWrap>
           {movie.title}
         </Typography>
