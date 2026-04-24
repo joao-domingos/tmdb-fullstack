@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 function MovieGrid() {
   const { state, dispatch, fetchMovies } = useMovie();
-  const { movies, loading, error, filters, page } = state;
+  const { movies, genres, loading, error, filters, page } = state;
 
   useEffect(() => {
     fetchMovies(dispatch, filters, page);
@@ -27,7 +27,7 @@ function MovieGrid() {
     <Grid container spacing={3}>
       {movies.map((movie) => (
         <Grid item key={movie.id} xs={12} sm={6} md={4} lg={3}>
-          <MovieCard movie={movie} />
+          <MovieCard movie={movie} genresList={genres} />
         </Grid>
       ))}
     </Grid>
