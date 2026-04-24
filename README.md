@@ -38,12 +38,12 @@ Aplicação de página única (SPA) desenvolvida em React.js para descobrir e bu
    npm run dev
    ```
 
-## Build para Produção
+## Projeto online
 ```bash
-npm run build
+
+LINK AQUI
 ```
 
-Os arquivos gerados estarão na pasta `dist/`.
 
 ## Informações do Curso
 - **Universidade:** [UTFPR-CP]
@@ -51,4 +51,4 @@ Os arquivos gerados estarão na pasta `dist/`.
 - **Professor:** [Professor Doutor Willian Watanabe]
 
 ## Desenvolvido por
-[j]
+j
