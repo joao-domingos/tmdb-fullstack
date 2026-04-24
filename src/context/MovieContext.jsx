@@ -1,10 +1,11 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, useEffect } from 'react';
 
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 const initialState = {
   movies: [],
+  genres: [],
   loading: false,
   error: null,
   filters: {
@@ -26,6 +27,8 @@ function movieReducer(state, action) {
       return { ...state, page: action.payload };
     case 'SET_MOVIES':
       return { ...state, movies: action.payload.movies, totalPages: action.payload.totalPages };
+    case 'SET_GENRES':
+      return { ...state, genres: action.payload };
     case 'SET_LOADING':
       return { ...state, loading: action.payload };
     case 'SET_ERROR':
@@ -67,6 +70,13 @@ const MovieContext = createContext();
 
 export function MovieProvider({ children }) {
   const [state, dispatch] = useReducer(movieReducer, initialState);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/genre/movie/list?api_key=${TMDB_API_KEY}&language=en-US`)
+      .then(res => res.json())
+      .then(data => dispatch({ type: 'SET_GENRES', payload: data.genres || [] }))
+      .catch(() => {});
+  }, []);
 
   return (
     <MovieContext.Provider value={{ state, dispatch, fetchMovies }}>

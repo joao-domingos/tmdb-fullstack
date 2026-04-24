@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, TextField, MenuItem, Button } from '@mui/material';
 import { useMovie } from '../context/MovieContext';
-
-const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = 'https://api.themoviedb.org/3';
 
 const sortOptions = [
   { value: 'popularity.desc', label: 'Popularity' },
@@ -14,19 +11,12 @@ const sortOptions = [
 ];
 
 function FilterSection() {
-  const { dispatch } = useMovie();
-  const [genres, setGenres] = useState([]);
+  const { state, dispatch } = useMovie();
+  const { genres } = state;
   const [selectedGenre, setSelectedGenre] = useState('');
   const [year, setYear] = useState('');
   const [minRating, setMinRating] = useState('');
   const [sortBy, setSortBy] = useState('popularity.desc');
-
-  useEffect(() => {
-    fetch(`${BASE_URL}/genre/movie/list?api_key=${TMDB_API_KEY}&language=en-US`)
-      .then(res => res.json())
-      .then(data => setGenres(data.genres || []))
-      .catch(() => setGenres([]));
-  }, []);
 
   const handleApply = () => {
     dispatch({
