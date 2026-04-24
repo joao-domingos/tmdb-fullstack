@@ -17,8 +17,44 @@ function FilterSection() {
   const [year, setYear] = useState('');
   const [minRating, setMinRating] = useState('');
   const [sortBy, setSortBy] = useState('popularity.desc');
+  const [yearError, setYearError] = useState('');
+  const [ratingError, setRatingError] = useState('');
+
+  const validateInputs = () => {
+    let isValid = true;
+
+    if (year) {
+      const yearNum = parseInt(year);
+      if (yearNum < 1887 || yearNum > 2116) {
+        setYearError('Year must be between 1887 and 2116');
+        isValid = false;
+      } else {
+        setYearError('');
+      }
+    } else {
+      setYearError('');
+    }
+
+    if (minRating) {
+      const ratingNum = parseFloat(minRating);
+      if (ratingNum < 0 || ratingNum > 10) {
+        setRatingError('Rating must be between 0 and 10');
+        isValid = false;
+      } else {
+        setRatingError('');
+      }
+    } else {
+      setRatingError('');
+    }
+
+    return isValid;
+  };
 
   const handleApply = () => {
+    if (!validateInputs()) {
+      return;
+    }
+
     dispatch({
       type: 'SET_FILTERS',
       payload: {
@@ -35,10 +71,22 @@ function FilterSection() {
     setYear('');
     setMinRating('');
     setSortBy('popularity.desc');
+    setYearError('');
+    setRatingError('');
     dispatch({
       type: 'SET_FILTERS',
       payload: { genre: null, year: null, rating: null, sortBy: 'popularity.desc' },
     });
+  };
+
+  const handleYearChange = (e) => {
+    setYear(e.target.value);
+    if (yearError) setYearError('');
+  };
+
+  const handleRatingChange = (e) => {
+    setMinRating(e.target.value);
+    if (ratingError) setRatingError('');
   };
 
   return (
@@ -66,10 +114,12 @@ function FilterSection() {
           label="Year"
           type="number"
           value={year}
-          onChange={(e) => setYear(e.target.value)}
-          inputProps={{ min: 1900, max: 2030 }}
+          onChange={handleYearChange}
+          error={yearError !== ''}
+          helperText={yearError}
+          inputProps={{ min: 1887, max: 2116 }}
           sx={{
-            width: 120,
+            width: 140,
             '& .MuiInputBase-input': { backgroundColor: '#ffffff', color: '#000000' },
             '& .MuiInputLabel-root': { color: '#000000' },
           }}
@@ -79,10 +129,12 @@ function FilterSection() {
           label="Min Rating"
           type="number"
           value={minRating}
-          onChange={(e) => setMinRating(e.target.value)}
+          onChange={handleRatingChange}
+          error={ratingError !== ''}
+          helperText={ratingError}
           inputProps={{ min: 0, max: 10, step: 0.1 }}
           sx={{
-            width: 120,
+            width: 140,
             '& .MuiInputBase-input': { backgroundColor: '#ffffff', color: '#000000' },
             '& .MuiInputLabel-root': { color: '#000000' },
           }}
@@ -109,6 +161,7 @@ function FilterSection() {
         <Button
           variant="contained"
           onClick={handleApply}
+          disabled={yearError !== '' || ratingError !== ''}
           sx={{ backgroundColor: '#fabd2f', color: '#000000', '&:hover': { backgroundColor: '#d4a017' } }}
         >
           Apply
