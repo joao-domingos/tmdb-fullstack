@@ -1,54 +1,68 @@
-# TMDB Busca e Descoberta de Filmes
+# TMDB — Busca e Descoberta de Filmes
 
-## Sobre
-Aplicação de página única (SPA) desenvolvida em React.js para descobrir e buscar filmes utilizando a API do The Movie Database (TMDB).
+Aplicação web fullstack para descobrir e buscar filmes usando a API do The Movie Database (TMDB). Inclui backend HTTP em Express, banco MongoDB, cache em Redis e autenticação por JWT.
+
+## Disciplina
+- Universidade Tecnológica Federal do Paraná — Campus Cornélio Procópio
+- ES47B-ES71 — Programação Web Fullstack
+- Prof. Dr. Willian Massami Watanabe
 
 ## Funcionalidades
-- Busca de filmes por título
-- Filtros por gênero, ano e nota mínima
-- Ordenação por popularidade, nota ou data de lançamento
-- Paginação para navegar pelos resultados
-- Layout responsivo em grid
+- Login com usuário e senha.
+- Busca de filmes com filtros e paginação, integrada à API do TMDB.
+- Watchlist pessoal: salvar, buscar, marcar como assistido, editar observação e remover filmes.
+- Cache de respostas do TMDB no Redis.
 
-## Tecnologias Utilizadas
-- **React.js** - Framework frontend
-- **MaterialUI** - Biblioteca de componentes
-- **TMDB API** - Fonte de dados de filmes
-- **Vite** - Ferramenta de build
+## Stack
+- **Front-end:** React 19, Vite 8, MaterialUI 9, React Compiler.
+- **Back-end:** Node.js, Express, Mongoose, ioredis, JWT, bcrypt, helmet, compression, express-validator, pino.
+- **Infraestrutura local:** MongoDB 7 e Redis 7 via Docker Compose.
 
-## Configuração
+## Estrutura
+```
+frontend/              # SPA React
+backend/               # API Express
+  src/
+    config/            # env, db, redis, logger
+    models/            # Mongoose schemas
+    routes/            # rotas + controladores inline
+docker-compose.yml     # Mongo + Redis
+```
 
-### Pré-requisitos
-- Node.js instalado
-- Chave de API do TMDB (gratuita em https://www.themoviedb.org/settings/api)
-
-### Instalação
-1. Clone o repositório
-2. Crie um arquivo `.env` na raiz do projeto
-3. Adicione sua chave de API do TMDB:
+## Como rodar
+1. Subir a infraestrutura:
+   ```bash
+   docker compose up -d
    ```
-   VITE_TMDB_API_KEY=sua_chave_aqui
-   ```
-4. Instale as dependências:
+2. Instalar dependências (instala os dois workspaces):
    ```bash
    npm install
    ```
-5. Inicie o servidor de desenvolvimento:
+3. Configurar o backend:
+   ```bash
+   cp backend/.env.example backend/.env
+   ```
+   Preencha `JWT_SECRET` (gerar com `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`) e `TMDB_API_KEY` (obter em https://www.themoviedb.org/settings/api).
+4. Criar o usuário inicial:
+   ```bash
+   npm run seed
+   ```
+   Credenciais padrão: `admin` / `admin123` (configuráveis em `backend/.env`).
+5. Subir a aplicação:
    ```bash
    npm run dev
    ```
+   Frontend: http://localhost:5173 · Backend: http://localhost:3000/api
 
-## Projeto online
-```bash
+## Critérios atendidos
+- Estrutura de pastas conforme `doc_entrega1.pdf` e `doc_entrega2.pdf`.
+- Login, busca e inserção implementados.
+- Validação de campos no servidor com `express-validator`.
+- API no padrão REST.
+- Segurança: bcrypt, JWT com `jti` e blacklist no Redis, rate-limit no login, `helmet`, sanitização contra injeção e XSS, logs de auditoria com `pino`.
+- Compressão: `compression` no backend e gzip nos arquivos estáticos via Nginx no deploy.
+- Cache de respostas do TMDB no Redis com invalidação na inserção.
+- Pool de conexões do MongoDB configurado explicitamente.
 
-LINK AQUI
-```
-
-
-## Informações do Curso
-- **Universidade:** [UTFPR-CP]
-- **Disciplina:** [Programação Web Fullstack]
-- **Professor:** [Professor Doutor Willian Watanabe]
-
-## Desenvolvido por
-j
+## Vídeo de apresentação
+Roteiro de até 3 minutos disponível ao final do projeto.
